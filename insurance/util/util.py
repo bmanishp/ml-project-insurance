@@ -8,6 +8,10 @@ import numpy as np
 import dill
 
 def read_yaml_file(file_path)->dict:
+    """
+    yaml_file_path:str
+    output data: dict
+    """
     try:
         with open(file_path) as yaml_file:
             return yaml.safe_load(yaml_file)
@@ -31,6 +35,13 @@ def write_yaml_file(file_path:str,data:dict=None):
 
 
 def load_data(file_path:str,schema_file_path:str)->pd.DataFrame:
+    """
+    Load dataset from csv file:
+    file_path:str
+    schema_file_path:str
+    return:pandas dataframe object
+
+    """
     try:
         dataset_schema=read_yaml_file(schema_file_path)
         schema=dataset_schema[SCHEMA_FILE_COLUMNS_KEY]
@@ -49,6 +60,11 @@ def load_data(file_path:str,schema_file_path:str)->pd.DataFrame:
         raise InsuranceException(e,sys) from e
 
 def save_numpy_array_data(file_path:str,array:np.array):
+    """
+    Save numpy array data to file
+    file_path: str location of file to save
+    array: np.array data to save
+    """
     try:
         dir_path=os.path.dirname(file_path)
         os.makedirs(dir_path,exist_ok=True)
@@ -58,6 +74,11 @@ def save_numpy_array_data(file_path:str,array:np.array):
         raise InsuranceException(e,sys) from e
 
 def load_numpy_array_data(file_path:str)->np.array:
+    """
+    load numpy array data from file
+    file_path: str location of file to load
+    return: np.array data loaded
+    """
     try:
         with open(file_path,"rb") as file_obj:
             return np.load(file_obj)
@@ -86,5 +107,4 @@ def load_object(file_path:str):
             return dill.load(file_obj)
     except Exception as e:
         raise InsuranceException(e,sys) from e
-
 

@@ -7,4 +7,5 @@ PyYAML
 matplotlib
 evidently
 dill
+boto3
 -e .

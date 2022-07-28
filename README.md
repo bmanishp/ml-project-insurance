@@ -1,6 +1,17 @@
 # ml-project-insurance
 Insurance Premium Prediction
 
+Problem Statement:
+Insurance is a growing industry and also medical expenses of individual is increasing. And still there are lot of people who abstain from taking insurance. The challenge is to provide simple tool which can be accessible to people. By projecting future medical expenses based on the previous records, can give a fare estimate on policy premiums of an individual. With a few input parameters like age, sex, bmi, etc. people can see their medical expense. This will increase awareness on health insurance and as a result prospective customer base will increase
+
+Acknowledgement:
+This dataset is taken from kaggle.
+
+Dataset Link: https://www.kaggle.com/datasets/noordeen/insurance-premium-prediction
+
+Goal:
+It is an attempt to predict future medical expenses by using available dataset "insurance.csv". We will apply multiple linear regression models and choose the best one which gives the best result.
+
 ### Software and account Requirement.
 
 1. [Github Account](https://github.com)
@@ -9,108 +20,15 @@ Insurance Premium Prediction
 4. [GIT cli](https://git-scm.com/downloads)
 5. [GIT Documentation](https://git-scm.com/docs/gittutorial)
 
+### Project Implementation reference:
+1. [Github-repo](https://github.com/bmanishp/ml-project-insurance)
+2. [Heroku-app](https://ml-insurance-regression-app.herokuapp.com/)
 
-Creating conda environment
-```
-conda create -p venv python==3.7 -y
-```
-```
-conda activate venv/
-```
-OR 
-```
-conda activate venv
-```
+### Project Pipeline:
+1. Data Ingestion 
+2. Data Validation
+3. Data Transformation
+4. Model Training
+5. Model Evaluating
+6. Model Pushing
 
-```
-pip install -r requirements.txt
-```
-
-To Add files to git
-```
-git add .
-```
-
-OR
-```
-git add <file_name>
-```
-
-> Note: To ignore file or folder from git we can write name of file/folder in .gitignore file
-
-To check the git status 
-```
-git status
-```
-To check all version maintained by git
-```
-git log
-```
-
-To create version/commit all changes by git
-```
-git commit -m "message"
-```
-
-To send version/changes to github
-```
-git push origin main
-```
-
-To check remote url 
-```
-git remote -v
-```
-
-To setup CI/CD pipeline in heroku we need 3 information
-1. HEROKU_EMAIL = bmanishp@gmail.com
-2. HEROKU_API_KEY = <>
-3. HEROKU_APP_NAME = ml-insurance-regression-app
-
-BUILD DOCKER IMAGE
-```
-docker build -t <image_name>:<tagname> .
-```
-> Note: Image name for docker must be lowercase
-
-
-To list docker image
-```
-docker images
-```
-
-Run docker image
-```
-docker run -p 5000:5000 -e PORT=5000 f8c749e73678
-```
-
-To check running container in docker
-```
-docker ps
-```
-
-Tos stop docker conatiner
-```
-docker stop <container_id>
-```
-
-
-
-```
-python setup.py install
-```
-
-
-Install ipykernel
-
-```
-pip install ipykernel
-```
-
-
-Data Drift:
-When your datset stats gets change we call it as data drift
-
-
-
-## Write a function to get training file path from artifact dir

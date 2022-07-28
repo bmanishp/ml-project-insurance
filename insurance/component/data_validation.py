@@ -57,7 +57,7 @@ class DataValidation:
                 training_file=self.data_ingestion_artifact.train_file_path
                 testing_file=self.data_ingestion_artifact.test_file_path
                 message=f"Training file: {training_file} or Testing file: {testing_file}" \
-                    "is not present"
+                        "is not present"
                 raise Exception(message)
             return is_available
         except Exception as e:
@@ -106,7 +106,8 @@ class DataValidation:
                                     check_domain_value=False
                                     break
             validation_status=check_num_of_columns & check_col_names & check_domain_value
-            logging.info(f"Validation Status Number of columns:=>[{check_num_of_columns}] Column Names:=>[{check_col_names}] and domain values:=> [{check_domain_value}]")
+            logging.info(f"Validation Status Number of columns:=>[{check_num_of_columns}] Column Names:=> \
+                        [{check_col_names}] and domain values:=> [{check_domain_value}]")
             return validation_status
         except Exception as e:
             raise InsuranceException(e,sys) from e
@@ -161,12 +162,12 @@ class DataValidation:
             self.is_data_drift_found()
 
             data_validation_artifact=DataValidationArtifact(
-                schema_file_path=self.data_validation_config.schema_file_path,
-                report_file_path=self.data_validation_config.report_file_path,
-                report_page_file_path=self.data_validation_config.report_page_file_path,
-                is_validated=True,
-                message="Data Validation performed successfully"
-            )
+                                    schema_file_path=self.data_validation_config.schema_file_path,
+                                    report_file_path=self.data_validation_config.report_file_path,
+                                    report_page_file_path=self.data_validation_config.report_page_file_path,
+                                    is_validated=True,
+                                    message="Data Validation performed successfully"
+                                    )
             logging.info(f"Data Validation Artifact: {data_validation_artifact}")
             return data_validation_artifact
         except Exception as e:

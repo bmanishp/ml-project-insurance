@@ -1,10 +1,10 @@
 from flask import Flask, request
 import sys
+import os
 from insurance.util.util import read_yaml_file, write_yaml_file
 from matplotlib.style import context
 from insurance.logger import logging
 from insurance.exception import InsuranceException
-import os, sys
 import json
 from insurance.config.configuration import Configuration
 from insurance.constant import CONFIG_FILE_DIR_NAME, get_current_time_stamp
@@ -206,6 +206,10 @@ def render_log_dir(req_path):
     }
     return render_template('log_files.html', result=result)
 
+@app.route("/eda",methods=['GET','POST'])
+def Load_eda_file():
+
+    return render_template('eda.html')
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

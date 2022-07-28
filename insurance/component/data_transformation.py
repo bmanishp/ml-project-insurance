@@ -2,7 +2,7 @@ from insurance.constant import *
 from insurance.logger import logging
 from insurance.exception import InsuranceException
 from insurance.entity.config_entity import DataTransformationConfig
-from insurance.entity.artifact_entity import DataIngestionArtifact, DataTransformationArtifact, DataValidationArtifact
+from insurance.entity.artifact_entity import DataIngestionArtifact, DataTransformationArtifact,DataValidationArtifact
 from insurance.util.util import *
 import os,sys
 import pandas as pd
@@ -38,26 +38,22 @@ class DataTransformation:
             numerical_columns=dataset_schema[SCHEMA_FILE_NUMERICAL_COLUMNS_KEY]
             categorical_columns=dataset_schema[SCHEMA_FILE_CATEGORICAL_COLUMNS_KEY]
 
-            num_pipeline=Pipeline(steps=[
-                ('imputer',SimpleImputer(strategy='median')),
-                ('scaler',MaxAbsScaler()
-                )
-            ]
-            )
+            #MaxAbsScaler is chosen because of sparse data
+            num_pipeline=Pipeline(steps=[('imputer',SimpleImputer(strategy='median')),
+                                        ('scaler',MaxAbsScaler())
+                                        ])
             
-            cat_pipeline=Pipeline(steps=[
-                ('impute',SimpleImputer(strategy='most_frequent')),
-                ('one_hot_encoder',OneHotEncoder()),
-                ('scaler',MaxAbsScaler())
-            ])
+            cat_pipeline=Pipeline(steps=[('impute',SimpleImputer(strategy='most_frequent')),
+                                        ('one_hot_encoder',OneHotEncoder()),
+                                        ('scaler',MaxAbsScaler())
+                                        ])
 
             logging.info(f"Categorical columns: {categorical_columns}")
             logging.info(f"Numerical Columns: {numerical_columns}")
 
-            preprocessing=ColumnTransformer([
-                ('num_pipeline',num_pipeline,numerical_columns),
-                ('cat_pipeline',cat_pipeline,categorical_columns)
-            ])
+            preprocessing=ColumnTransformer([('num_pipeline',num_pipeline,numerical_columns),
+                                            ('cat_pipeline',cat_pipeline,categorical_columns)
+                                            ])
 
             return preprocessing
             
@@ -116,12 +112,12 @@ class DataTransformation:
             save_object(file_path=preprocessed_obj_file_path,obj=preprocessing_obj)
 
             data_transformation_artifact=DataTransformationArtifact(
-                transformed_train_file_path=transformed_train_file_path,
-                transformed_test_file_path=transformed_test_file_path,
-                preprocessed_obj_file_path=preprocessed_obj_file_path,
-                is_transformed=True,
-                message="Data transformation_successfull.",
-            )
+                                        transformed_train_file_path=transformed_train_file_path,
+                                        transformed_test_file_path=transformed_test_file_path,
+                                        preprocessed_obj_file_path=preprocessed_obj_file_path,
+                                        is_transformed=True,
+                                        message="Data transformation_successfull.",
+                                        )
             logging.info(f"Data Transformation artifact: {data_transformation_artifact}")
             return data_transformation_artifact
         except Exception as e:

@@ -3,7 +3,8 @@ from insurance.logger import logging
 from insurance.exception import InsuranceException
 from insurance.entity.config_entity import DataIngestionConfig
 from sklearn.model_selection import StratifiedShuffleSplit
-import os,sys
+import os
+import sys
 from six.moves import urllib
 import tarfile
 import pandas as pd
@@ -39,6 +40,7 @@ class DataIngestion:
             #downloading
             logging.info(f"downloading file from url: {download_url} into file: {tgz_file_path}")
             urllib.request.urlretrieve(download_url,tgz_file_path)
+
             logging.info(f"file: {tgz_file_path} has been downloaded successfully")
             return tgz_file_path
         except Exception as e:
@@ -74,11 +76,10 @@ class DataIngestion:
             insurance_data_frame=pd.read_csv(insurance_file_path)
 
             #adding one column and using pd.cut
-            insurance_data_frame['expense_cat']=pd.cut(
-                insurance_data_frame['expenses'],
-                bins=[0.0,1.5,3.0,4.5,6,np.inf],
-                labels=[1,2,3,4,5]
-            )
+            insurance_data_frame['expense_cat']=pd.cut(insurance_data_frame['expenses'],
+                                                        bins=[0.0,1.5,3.0,4.5,6,np.inf],
+                                                        labels=[1,2,3,4,5]
+                                                        )
             logging.info(f"splitting data into train set and test set using stratified shuffle split")
             strat_train_set=None
             strat_test_set=None
@@ -104,12 +105,11 @@ class DataIngestion:
                 logging.info(f"Exporting testing data to file: {test_file_path}")
                 strat_test_set.to_csv(test_file_path,index=False)
 
-            data_ingestion_artifact=DataIngestionArtifact(
-                train_file_path=train_file_path,
-                test_file_path=test_file_path,
-                is_ingested=True,
-                message=f"Data Ingestion Completed successfully"
-            )
+            data_ingestion_artifact=DataIngestionArtifact(train_file_path=train_file_path,
+                                                        test_file_path=test_file_path,
+                                                        is_ingested=True,
+                                                        message=f"Data Ingestion Completed successfully"
+                                                        )
             logging.info(f"Data Ingestion artifact:[{data_ingestion_artifact}]")
             return data_ingestion_artifact
 

@@ -1,8 +1,8 @@
-
 from insurance.logger import logging
 from insurance.exception import InsuranceException
 from insurance.entity.config_entity import ModelEvaluationConfig
-from insurance.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact,ModelTrainerArtifact,ModelEvaluationArtifact
+from insurance.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact, \
+                                            ModelTrainerArtifact,ModelEvaluationArtifact
 from insurance.constant import *
 import numpy as np
 import os
@@ -31,8 +31,7 @@ class ModelEvaluation:
             model_evaluation_file_path = self.model_evaluation_config.model_evaluation_file_path
 
             if not os.path.exists(model_evaluation_file_path):
-                write_yaml_file(file_path=model_evaluation_file_path,
-                                )
+                write_yaml_file(file_path=model_evaluation_file_path,)
                 return model
             model_eval_file_content = read_yaml_file(file_path=model_evaluation_file_path)
 
